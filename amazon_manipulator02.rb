@@ -9,7 +9,7 @@ class AmazonManipulator
 
     def initialize(account_file)
         @driver = Selenium::WebDriver.for :chrome
-        @wait = Selenium::WebDriver::wait.new(timeout: 20)
+        @wait = Selenium::WebDriver::Wait.new(timeout: 20)
         @account = read(account_file)
     end
 
