@@ -1,0 +1,26 @@
+    <form method="get" action="/your-orders/orders" class="js-time-filter-form a-spacing-none"> #<1>
+      <span class="a-dropdown-container">
+        <select name="timeFilter" autocomplete="off" id="time-filter" tabIndex="-1" class="a-native-dropdown">
+ # <2>
+        <option data-ref="d30" value="last30">
+            過去30日間
+        </option>
+        <option data-ref="m3" value="months-3" selected>
+            過去3か月
+        </option>
+        <option data-ref="y2024" value="year-2024">
+            2024年
+        </option>
+      （略）
+        <option data-ref="y2019" value="year-2019"> # <3>
+            2019年
+        </option>
+      （略）
+        <option data-ref="y2000" value="year-2000">
+            2000年
+        </option>
+        <option data-ref="archived" value="archived">
+            非表示にした注文
+        </option>
+      （略）
+    </form>

@@ -1,0 +1,41 @@
+<%# encoding: utf-8 %>
+<% require_relative './term_names' %>
+<% files = Dir.glob("ohr-*.output") %> <!--1-->
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+    <link rel="stylesheet" type="text/css" href="default.css">
+    <title>Amazon注文履歴</title>
+  </head>
+  <body>
+    <h1>Amazon注文履歴</h1>
+    <h2>取得済み注文履歴ファイルの一覧</h2>
+    <p id="links"><a href="collect.erb">注文履歴の取得に戻る</a>｜
+      <a href="index.html">メニュー画面に戻る</a></p> 
+    <p id="msg">表示したい注文履歴の「詳細を表示」を押してください</p>
+    <hr>
+    <table>
+      <tr>
+        <th>&nbsp;</th><th>取得期間</th><th>保存ファイル名</th>
+      </tr>
+      <% $term_names.each do |key, val| %> <!--2-->
+        <% file = "ohr-#{key}.output" %> <!--3-->
+        <% if FileTest.exist?(file) %> <!--4-->
+          <tr>
+            <td>
+              <form method="post" action="report" name="list_form_<%= key %>" > <!--5-->
+                <input type="hidden" name="term" value="<%= key %>"> <!--6-->
+                <input type="hidden" name="file" value="<%= file %>"> <!--7-->
+                <button class="exec_btn" type="submit">詳細を表示</button>
+              </form>
+            </td>
+            <td><%= val %></td>  <!--8-->
+            <td><%= file %></td> <!--9-->
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+    <hr>
+  </body>
+</html>

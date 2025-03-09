@@ -1,0 +1,51 @@
+<%# encoding: utf-8 %>
+<% require_relative './term_names' %>
+<% require_relative '../order_history_reader' %>  <!--1-->
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+    <link rel="stylesheet" type="text/css" href="default.css">
+    <title>Amazon注文履歴</title>
+  </head>
+  <body>
+    <h1>Amazon注文履歴</h1>
+    <h2>注文履歴の詳細</h2>
+    <p id="links"><a href="list.erb">取得済み注文履歴一覧の表示へ戻る</a>｜
+      <a href="index.html">メニュー画面に戻る</a></p> 
+    <hr>
+    <table>
+      <tr>
+        <th>取得期間</th>
+        <td><%= $term_names[term] %>（<%= term %>）</td> <!--2-->
+      </tr>
+      <tr>
+        <th>保存ファイル名</th>
+        <td><%= file %></td> <!--3-->
+      </tr>
+    </table>
+    <hr>
+    <% reader = OrderHistoryReader.new(file) %> <!--4-->
+    <% reader.each do |rec| %> <!--5-->
+      <table class="report">
+        <% ['注文番号', '注文日', '合計', 'お届け先', '明細'].each do |key| %> <!--6-->
+          <% value = rec[key] %> <!--7-->
+          <% if '注文番号' == key || '明細' == key %> <!--8-->
+            <tr>
+          <% end %>
+          <th class="itemname"><%= key %></th> <!--9-->
+          <% if '明細' == key %>  <!--10-->
+            <td colspan="7"><%= value %></td>
+          <% else %>
+            <td><%= value %></td>
+          <% end %>
+          <% if 'お届け先' == key || '明細' == key %> <!--11-->
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    <% end %>
+    <% reader.close %>
+    <hr>
+  </body>
+</html>

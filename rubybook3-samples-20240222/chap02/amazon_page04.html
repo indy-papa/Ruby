@@ -1,0 +1,25 @@
+<form id="timePeriodForm" method="get" action="/gp/your-account/order-history" class="time-period-chooser a-spacing-none"> # <1>
+    （略）
+    <select name="orderFilter" autocomplete="off" id="orderFilter" tabindex="0" class="a-native-dropdown a-declarative" aria-pressed="false"> # <2>
+        <option value="last30" id="orderFilterEntry-last30">
+            過去30日間
+        </option>
+        <option value="months-6" id="orderFilterEntry-months-6" selected="">
+            過去6カ月間
+        </option>
+        <option value="year-2020" id="orderFilterEntry-year-2020">
+            2020年
+        </option>
+        <option value="year-2019" id="orderFilterEntry-year-2019"> # <3>
+            2019年
+        </option>
+      （略）
+        <option value="year-2001" id="orderFilterEntry-year-2001">
+            2001年
+        </option>
+        <option value="archived" id="orderFilterEntry-archived">
+             非表示にした注文
+        </option>
+    </select>
+   （略）
+</form>

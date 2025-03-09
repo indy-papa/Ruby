@@ -1,0 +1,61 @@
+<%# encoding: utf-8 %>
+<% require_relative './term_names' %>
+<!DOCTYPE html>
+<html lang="ja">
+ <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <link rel="stylesheet" type="text/css" href="default.css">
+   <style>
+     #loading{
+       display:none; // <1>
+       position:absolute;
+       left:30%; // <2>
+       top:30%;
+     }
+   </style>
+   <script>
+     function collecting() { // <3>
+       document.getElementById('loading').style.display = "block"; // <4>
+       document.getElementById('links').innerHTML = ""; // <5>
+       document.getElementById('msg').innerHTML 
+         = "<p>注文履歴を取得するまでしばらくお待ちください</p>"; // <6>
+       document.collect_form.submit(); // <7>
+       document.collect_form.term.disabled = true; // <8>
+       document.collect_form.account.disabled = true;
+       document.collect_form.exec_btn.disabled = true;
+     }
+   </script>
+   <title>Amazon注文履歴</title>
+ </head>
+ <body>
+   <h1>Amazon注文履歴</h1>
+   <h2>注文履歴の取得</h2>
+   <p id="links"><a href="list02.html">取得済み注文履歴一覧の表示</a>｜
+     <a href="index.html">メニュー画面に戻る</a></p> 
+   <p id="msg">取得期間とアカウントファイル名を指定して「履歴を取得」を押してください</p>
+   <hr>
+   <form method="post" action="collect" name="collect_form">
+     <table>
+       <tr>
+         <th>オプション項目名</th><th>オプションデータ</th>
+       </tr>
+       <tr>
+         <td>取得期間</td>
+         <td><select name="term" id="selector">
+             <% $term_names.each_pair do |key, val| %>
+               <option value="<%= key %>"><%= val %></option>
+             <% end %>
+           </select>
+         </td>
+       </tr>
+       <tr>
+         <td>アカウントファイル名</td>
+         <td><input type="text" name="account" value="account.json" /></td>
+       </tr>
+     </table>
+     <button class="exec_btn" name="exec_btn" onClick="collecting()">履歴を取得</button> <!--1-->
+   </form>
+   <div id="loading"><img src="loading-712-66.gif" /></div> <!--2-->
+   <hr>
+ </body>
+</html>

@@ -1,0 +1,54 @@
+<%# encoding: utf-8 %>
+<% require_relative './term_names' %>
+<% files = Dir.glob("ohr-*.output") %>
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+    <link rel="stylesheet" type="text/css" href="default.css">
+    <script> <!--1-->
+      function translating(fn,en) {
+        var msg = '履歴 ' + fn + ' から ' + en + ' に変換します。よろしいですか。';
+        if(window.confirm(msg)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    </script>
+    <title>Amazon注文履歴</title>
+  </head>
+  <body>
+    <h1>Amazon注文履歴</h1>
+    <h2>注文履歴をExcelワークシートに変換</h2> <!--2-->
+    <p id="links"><a href="collect.erb">注文履歴の取得</a>｜
+      <a href="index.html">メニュー画面に戻る</a></p> 
+    <p id="msg">変換したい注文履歴の「履歴を変換」を押してください</p> <!--3-->
+    <hr>
+    <table>
+      <tr>
+        <th>&nbsp;</th><th>取得期間</th><th>保存ファイル名</th>
+      </tr>
+      <% $term_names.each do |key, val| %>
+        <% file = "ohr-#{key}.output" %>
+        <% exfile = "ohr-#{key}.xlsx" %> <!--4-->
+        <% if FileTest.exist?(file) %>
+          <tr>
+            <td>
+              <form method="post" action="excel_trans" name="trans_form_<%= key %>"
+                    onSubmit="return translating('<%= file %>','<%= exfile %>')"> <!--5-->
+                <input type="hidden" name="term" value="<%= key %>">
+                <input type="hidden" id="file" name="file" value="<%= file %>">
+                <input type="hidden" id="exfile" name="exfile" value="<%= exfile %>"> <!--6-->
+                <button class="exec_btn" type="submit">履歴を変換</button> <!--7-->
+              </form>
+            </td>
+            <td><%= val %></td> 
+            <td><%= file %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+    <hr>
+  </body>
+</html>

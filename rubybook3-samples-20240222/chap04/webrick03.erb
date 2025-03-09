@@ -1,0 +1,16 @@
+<html lamg="ja">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <p>アクセスした日付は <%= today %> です。</p> <!--1-->
+    <p>リクエストのパスは <%= req.path %> でした。</p> <!--2-->
+    <table border=1>
+      <%   req.each do |key, value| %>  <!--3-->
+      <tr>
+        <td><%= key %></td><td><%= value %></td> <!--4-->
+      </tr>
+      <% end %>
+    </table>
+  </body>
+</html>
