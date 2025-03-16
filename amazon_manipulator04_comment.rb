@@ -14,11 +14,11 @@ class AmazonManipulator
     end
 
     def login   # 1
-        open_top_page
-        open_login_page
-        enter_mail_address
-        enter_password
-        wait_for_logged_in
+        open_top_page               # 指示されたページを表示
+        open_login_page             # ログインページの表示
+        enter_mail_address          # ログイン情報のメールアドレスを入力
+        enter_password              # ログインパスワードを入力
+        wait_for_logged_in          # ログイン後の画面表示を待つ
     end
 
     def logout  # 2
